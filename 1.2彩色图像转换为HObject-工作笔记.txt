@@ -1,0 +1,23 @@
+//unsigned char* 图像转换为HObject
+
+int hgt = stInfo.nHeight;
+int wid = stInfo.nWidth;
+unsigned char * dataRed = new unsigned char[wid * hgt];
+unsigned char * dataGreen = new unsigned char[wid * hgt];
+unsigned char * dataBlue = new unsigned char[wid * hgt];
+unsigned char * data = new unsigned char[wid * hgt * 3];
+memcpy(data, pFrameBuf, wid * hgt * 3);
+for (int i = 0; i <wid * hgt; i++)
+{
+    dataRed[i] = (data[3 * i ]);
+    dataGreen[i] = data[3 * i + 1];
+    dataBlue[i] = data[3 * i +2];
+}
+GenImage3(&ho_Image, "byte", wid, hgt, (Hlong)(dataRed), (Hlong)(dataGreen), (Hlong)(dataBlue));
+WriteImage(ho_Image, "bmp", 0, HTuple("E:/code/Photo/") + 1);
+Sleep(500);
+delete[] dataRed;
+delete[] dataGreen;
+delete[] dataBlue;
+delete[] data;
+
